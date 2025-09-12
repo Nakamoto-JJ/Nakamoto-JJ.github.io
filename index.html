@@ -1,0 +1,499 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junjie Hu | Academic Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#333333',
+                        light: '#F5F5F5',
+                        muted: '#666666'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .section-fade {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            }
+            .section-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333333;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #165DFF;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .publication-item {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .publication-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header with fixed navigation -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 md:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <!-- Name and title -->
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-2xl font-bold text-secondary">Junjie Hu <span class="text-primary">/ 胡俊杰</span></h1>
+                    <p class="text-muted text-sm md:text-base">Ph.D | School of Computer Science, Shanghai Jiao Tong University</p>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-6">
+                        <li><a href="#about" class="nav-link active text-secondary hover:text-primary transition-colors">About</a></li>
+                        <li><a href="#publications" class="nav-link text-secondary hover:text-primary transition-colors">Publications</a></li>
+                        <li><a href="#projects" class="nav-link text-secondary hover:text-primary transition-colors">Projects</a></li>
+                        <li><a href="#cv" class="nav-link text-secondary hover:text-primary transition-colors">Others</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-secondary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile navigation -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-2">
+                <ul class="space-y-3">
+                    <li><a href="#about" class="block text-secondary hover:text-primary transition-colors">About</a></li>
+                    <li><a href="#publications" class="block text-secondary hover:text-primary transition-colors">Publications</a></li>
+                    <li><a href="#projects" class="block text-secondary hover:text-primary transition-colors">Projects</a></li>
+                    <li><a href="#cv" class="block text-secondary hover:text-primary transition-colors">Others</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 md:px-8 pt-32 pb-20">
+        <!-- Contact info bar -->
+        <div class="bg-light rounded-lg p-4 mb-12 flex flex-wrap items-center justify-between">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <a href="mailto:your.email@university.edu" class="text-muted hover:text-primary transition-colors flex items-center">
+                    <i class="fa fa-envelope mr-2"></i> nakamoto@sjtu.edu.cn
+                </a>
+                <a href="https://github.com/yourusername" target="_blank" class="text-muted hover:text-primary transition-colors flex items-center">
+                    <i class="fa fa-github mr-2"></i> GitHub
+                </a>
+                <a href="https://scholar.google.com/citations?user=yourid" target="_blank" class="text-muted hover:text-primary transition-colors flex items-center">
+                    <i class="fa fa-graduation-cap mr-2"></i> Google Scholar
+                </a>
+            </div>
+            <div class="text-muted">
+                School of Computer Science, Shanghai Jiao Tong University
+            </div>
+        </div>
+
+        <!-- About section -->
+        <section id="about" class="mb-20 section-fade">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 text-secondary">About</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Profile photo and brief info -->
+                <div class="md:col-span-1">
+                    <div class="bg-light rounded-lg p-6 sticky top-32">
+                        <img src="assets/images/me.jpg" alt="Junjie Hu" class="w-full h-auto rounded-lg mb-4">
+                        
+                        <h3 class="text-xl font-semibold mb-2">Research Interests</h3>
+                        <ul class="text-muted space-y-1 mb-6">
+                            <li>• Blockchain security</li>
+                            <li>• Economic Incentives</li>
+                            <li>• Consensus Protocol</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-semibold mb-2">Education</h3>
+                        <p class="text-muted mb-1">Ph.D. in School of Computer Science</p>
+                        <p class="text-sm text-muted">Shanghai Jiao Tong University, 2024-Present</p>
+                    </div>
+                </div>
+                
+                <!-- Detailed bio -->
+                <div class="md:col-span-2">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4">Short Bio</h3>
+                        <p class="mb-4 leading-relaxed">
+                            I am currently working toward the Ph.D. degree with the School of Computer Science, Shanghai Jiao Tong University, China.
+                        </p>
+                        <p class="mb-4 leading-relaxed">
+                            I received the National Scholarship, National Encouragement Scholarship, Sichuan Provincial Comprehensive Quality Level-A Certificate, and Chongqing Municipal Merit Student.
+                        </p>
+                        <p class="leading-relaxed">
+                            My research focuses on the blockchain security, economic incentives and consensus protocol.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Awards &amp; Honors</h3>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <span class="text-primary font-semibold min-w-[120px]">2018</span>
+                                <span>National Scholarship</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-primary font-semibold min-w-[120px]">2019</span>
+                                <span>National Encouragement Scholarship</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-primary font-semibold min-w-[120px]">2021</span>
+                                <span>Chongqing Municipal Merit Student</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-primary font-semibold min-w-[120px]">2022</span>
+                                <span>Sichuan Provincial Comprehensive Quality Level-A Certificate</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-primary font-semibold min-w-[120px]">2025</span>
+                                <span>Nomination Award for Inspirational Role Models at Shanghai Jiao Tong University</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-primary font-semibold min-w-[120px]">2025</span>
+                                <span>Best Paper Award, BlockSys 2025</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications section -->
+        <section id="publications" class="mb-20 section-fade">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 text-secondary">Publications</h2>
+            
+            <div class="mb-10">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-file-text-o text-primary mr-2"></i>
+                    Conference Papers
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="publication-item bg-white border border-gray-100 rounded-lg p-5">
+                        <p class="mb-2">
+                            <span class="font-semibold">[C1] Junjie Hu</span> and Na Ruan. 
+                            "BM-PAW: A Profitable Mining Attack in the PoW-based Blockchain System."
+                        </p>
+                        <p class="text-muted mb-2">In Proceedings of the 7th International Conference on Blockchain, Artificial Intelligence, and Trustworthy Systems (BlockSys), 2025.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> DOI
+                            </a>
+                            <a href="#" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                            </a>
+                            <a href="#" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-github mr-1"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-10">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-book text-primary mr-2"></i>
+                    Journal Papers
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="publication-item bg-white border border-gray-100 rounded-lg p-5">
+                        <p class="mb-2">
+                            <span class="font-semibold">[J1] Junjie Hu</span>, Huan Yan and Chunxiang Xu. 
+                            "Novel Bribery Mining Attacks: Impacts on Mining Ecosystem and the "Bribery Miner's Dilemma" in the Nakamoto-style Blockchain System."
+                        </p>
+                        <p class="text-muted mb-2">IEEE Transactions on Dependable and Secure Computing (TDSC), 2025.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> DOI
+                            </a>
+                            <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11150595&tag=1" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="publication-item bg-white border border-gray-100 rounded-lg p-5">
+                        <p class="mb-2">
+                            <span class="font-semibold">[J2] Junjie Hu</span>, Huan Yan, Na Ruan, Zhen Xiao and Jianhua Li. 
+                            "The Halt Game: Sometimes Rewards Cannot Cover Expenses in the PoW-Based Blockchain."
+                        </p>
+                        <p class="text-muted mb-2">IEEE Transactions on Information Forensics and Security (TIFS), 2025.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> DOI
+                            </a>
+                            <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11104110" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="publication-item bg-white border border-gray-100 rounded-lg p-5">
+                        <p class="mb-2">
+                            <span class="font-semibold">[J3] Junjie Hu</span>, Zhe Jiang and Chunxiang Xu. 
+                            "Greedy-Mine: A Profitable Mining Attack Strategy in Bitcoin-NG."
+                        </p>
+                        <p class="text-muted mb-2">International Journal of Intelligent Systems (IJIS), 2024.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> DOI
+                            </a>
+                            <a href="https://onlinelibrary.wiley.com/doi/epdf/10.1155/2024/9998126" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Added Manuscripts section -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-pencil text-primary mr-2"></i>
+                    Manuscripts
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="publication-item bg-white border border-gray-100 rounded-lg p-5">
+                        <p class="mb-2">
+                            <span class="font-semibold">[M1] Junjie Hu</span>, Na Ruan and Sisi Duan. 
+                            "Timestamp Manipulation: Timestamp-based Nakamoto-style Blockchains Are Vulnerable."
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://arxiv.org/pdf/2505.05328" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-file-pdf-o mr-1"></i> Preprint
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="publication-item bg-white border border-gray-100 rounded-lg p-5">
+                        <p class="mb-2">
+                            <span class="font-semibold">[M2] Junjie Hu</span> and Na Ruan. 
+                            "Larger-scale Nakamoto-style Blockchains Offer Better Security."
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://arxiv.org/pdf/2509.05708" class="text-primary hover:underline text-sm flex items-center">
+                                <i class="fa fa-file-pdf-o mr-1"></i> Preprint
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects section -->
+        <section id="projects" class="mb-20 section-fade">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 text-secondary">Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-light rounded-lg p-6 hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-semibold mb-3 text-primary">面向数据共享融合的层次式区块链安全与隐私保护关键技术研究</h3>
+                    <p class="text-sm text-muted mb-3">2025-2028 | 核心参与人员</p>
+                    <p class="mb-4">
+                        国家自然科学基金委员会面上基金
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Blockchain</span>
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Security</span>
+                    </div>
+                </div>
+                
+                <div class="bg-light rounded-lg p-6 hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-semibold mb-3 text-primary">面向多层次的区块链漏洞挖掘技术研究</h3>
+                    <p class="text-sm text-muted mb-3">2023-2025 | 核心参与人员</p>
+                    <p class="mb-4">
+                        上海科委重点攻关专项-科技创新行动计划区块链专项
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Blockchain</span>
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Security</span>
+                    </div>
+                </div>
+                
+                <div class="bg-light rounded-lg p-6 hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-semibold mb-3 text-primary">共识算法安全性分析、检测与修复系统</h3>
+                    <p class="text-sm text-muted mb-3">2024-2025 | 核心参与人员</p>
+                    <p class="mb-4">
+                        上海科委重点攻关专项-科技创新行动计划区块链专项课题
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Blockchain</span>
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Consensus</span>
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Security</span>
+                    </div>
+                </div>
+                
+                <div class="bg-light rounded-lg p-6 hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-semibold mb-3 text-primary">面向分布式分散资源聚合互动的可信交易关键技术研究及应用</h3>
+                    <p class="text-sm text-muted mb-3">2023-2025 | 核心参与人员</p>
+                    <p class="mb-4">
+                        国网总部科技课题
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Blockchain</span>
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded">Distribution</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- CV section -->
+<section id="cv" class="mb-20 section-fade">
+    <h2 class="text-3xl font-bold mb-8 pb-2 border-b border-gray-200 text-secondary">Others</h2>
+    
+    <div class="bg-light rounded-lg p-8 text-center">
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-left">Patents</h4>
+                <ul class="text-left space-y-2">
+                    <li>• 基于动态评估与智能预测的贪婪链上博弈优化系统及方法, CN119539085A, 2024</li>
+                    <li>• 基于算力动态调整的激励相容链上博弈系统及方法, CN119483899A, 2024</li>
+                </ul>
+            </div>   
+
+            <div class="mt-6"> <!-- 添加了mt-6来创建间隔 -->
+                <h4 class="text-lg font-semibold mb-4 text-left">Standards</h4>
+                <ul class="text-left space-y-2">
+                    <li>• IEEE Standard for Blockchain-Based Decentralized Storage Protocol Specification, P3220.02™/D0.1, 2025</li>
+                    <li>• 基于有向无环图的区块链交易并行调度技术规范, T/TBI 59-2024, 2024</li>
+                    <li>• 系统存储技术要求与评价方法, T/TBI 58-2024, 2024</li>
+                </ul>
+            </div>
+    </div>
+</section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-sm">© 2025 Junjie Hu. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+        
+        // Highlight active nav link based on scroll position
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Shrink header on scroll
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+            
+            // Animate sections on scroll
+            const fadeElements = document.querySelectorAll('.section-fade');
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('section-visible');
+                }
+            });
+        });
+        
+        // Initialize section animations
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const firstSection = document.querySelector('.section-fade');
+                if (firstSection) {
+                    firstSection.classList.add('section-visible');
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
