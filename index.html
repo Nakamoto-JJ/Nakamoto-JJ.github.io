@@ -137,11 +137,11 @@
             <div class="text-muted">
                 School of Computer Science, Shanghai Jiao Tong University
             </div>
-            <!-- 新增：浏览次数显示 -->
+            <!-- 浏览次数显示 -->
             <div class="text-primary font-medium flex items-center mt-4 md:mt-0">
                 <i class="fa fa-eye mr-2"></i>
                 <span>浏览次数：</span>
-                <span id="visit-count" class="ml-1">加载中...</span>
+                <span id="visit-count" class="ml-1">1</span> <!-- 默认显示1 -->
             </div>
         </div>
 
@@ -517,25 +517,38 @@
             }, 100);
         });
 
-        // 新增：浏览次数统计逻辑
+        // 浏览次数统计逻辑（始终显示数字）
         document.addEventListener('DOMContentLoaded', function() {
-            // 专属计数Key（基于你的姓名和网站类型，确保唯一性）
             const countKey = "junjiehu-academic-website";
-            const apiUrl = `https://api.countapi.xyz/hit/${countKey}/visits`;
-            
-            // 调用CountAPI获取并更新次数
-            fetch(apiUrl)
+            const getUrl = `https://api.countapi.xyz/get/${countKey}/visits`;
+            const hitUrl = `https://api.countapi.xyz/hit/${countKey}/visits`;
+            const setUrl = `https://api.countapi.xyz/set/${countKey}/visits/1`;
+            const countElement = document.getElementById('visit-count');
+            let currentCount = 1; // 本地默认计数
+
+            // 先尝试获取当前计数
+            fetch(getUrl)
                 .then(response => response.json())
                 .then(data => {
-                    const countElement = document.getElementById('visit-count');
-                    // 格式化数字（添加千位分隔符，提升可读性）
-                    const formattedCount = data.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    if (data.value === undefined) {
+                        // 首次使用，初始化为1
+                        return fetch(setUrl).then(res => res.json());
+                    } else {
+                        currentCount = data.value;
+                        // 累加计数
+                        return fetch(hitUrl).then(res => res.json());
+                    }
+                })
+                .then(result => {
+                    // 更新为最新计数
+                    currentCount = result?.value || currentCount;
+                    const formattedCount = currentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     countElement.textContent = formattedCount;
                 })
-                .catch(error => {
-                    // 网络异常时显示友好提示
-                    document.getElementById('visit-count').textContent = "统计中";
-                    console.log("浏览次数加载失败：", error);
+                .catch(() => {
+                    // 失败时使用本地计数（不显示提示）
+                    const formattedCount = currentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    countElement.textContent = formattedCount;
                 });
         });
     </script>
