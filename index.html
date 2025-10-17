@@ -137,6 +137,12 @@
             <div class="text-muted">
                 School of Computer Science, Shanghai Jiao Tong University
             </div>
+            <!-- 新增：浏览次数显示 -->
+            <div class="text-primary font-medium flex items-center mt-4 md:mt-0">
+                <i class="fa fa-eye mr-2"></i>
+                <span>浏览次数：</span>
+                <span id="visit-count" class="ml-1">加载中...</span>
+            </div>
         </div>
 
         <!-- About section -->
@@ -509,6 +515,28 @@
                     firstSection.classList.add('section-visible');
                 }
             }, 100);
+        });
+
+        // 新增：浏览次数统计逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            // 专属计数Key（基于你的姓名和网站类型，确保唯一性）
+            const countKey = "junjiehu-academic-website";
+            const apiUrl = `https://api.countapi.xyz/hit/${countKey}/visits`;
+            
+            // 调用CountAPI获取并更新次数
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const countElement = document.getElementById('visit-count');
+                    // 格式化数字（添加千位分隔符，提升可读性）
+                    const formattedCount = data.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    countElement.textContent = formattedCount;
+                })
+                .catch(error => {
+                    // 网络异常时显示友好提示
+                    document.getElementById('visit-count').textContent = "统计中";
+                    console.log("浏览次数加载失败：", error);
+                });
         });
     </script>
 </body>
