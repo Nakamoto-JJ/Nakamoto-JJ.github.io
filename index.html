@@ -137,12 +137,6 @@
             <div class="text-muted">
                 School of Computer Science, Shanghai Jiao Tong University
             </div>
-            <!-- 浏览次数显示 -->
-            <div class="text-primary font-medium flex items-center mt-4 md:mt-0">
-                <i class="fa fa-eye mr-2"></i>
-                <span>浏览次数：</span>
-                <span id="visit-count" class="ml-1">加载中...</span>
-            </div>
         </div>
 
         <!-- About section -->
@@ -515,38 +509,6 @@
                     firstSection.classList.add('section-visible');
                 }
             }, 100);
-        });
-
-        // 浏览次数统计逻辑
-        document.addEventListener('DOMContentLoaded', function() {
-            // 使用countapi.xyz服务来存储和获取访问次数
-            const countKey = "junjiehu-academic-website";
-            const getUrl = `https://api.countapi.xyz/get/${countKey}/visits`;
-            const hitUrl = `https://api.countapi.xyz/hit/${countKey}/visits`;
-            const setUrl = `https://api.countapi.xyz/set/${countKey}/visits/1`;
-            const countElement = document.getElementById('visit-count');
-            
-            // 先尝试获取当前计数
-            fetch(getUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.value === undefined) {
-                        // 首次使用，初始化为1
-                        return fetch(setUrl).then(res => res.json());
-                    } else {
-                        // 累加计数
-                        return fetch(hitUrl).then(res => res.json());
-                    }
-                })
-                .then(result => {
-                    // 更新计数显示
-                    const count = result.value || 1;
-                    countElement.textContent = count.toLocaleString();
-                })
-                .catch(error => {
-                    console.error('访问计数服务失败:', error);
-                    countElement.textContent = "统计失败";
-                });
         });
     </script>
 </body>
